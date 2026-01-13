@@ -1,0 +1,10 @@
+Ankle_boot
+Bag
+Coat
+Dress
+Pullover
+Sandal
+Shirt
+Sneaker
+T-shirt
+Trouser
