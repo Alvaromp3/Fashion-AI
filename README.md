@@ -1,73 +1,73 @@
-# 👕 Fashion AI - Recomendador de Outfits
+# Fashion AI - Outfit Recommender
 
-Aplicación web para subir fotos de ropa, clasificarlas automáticamente con un modelo CNN y recibir recomendaciones de outfits.
+Web application to upload clothing images, automatically classify them using a CNN model, and receive outfit recommendations.
 
-## 🛠️ Stack Tecnológico
+## Tech Stack
 
-- **Frontend**: React.js + Vite + Tailwind CSS
-- **Backend**: Node.js + Express
-- **Base de Datos**: MongoDB
-- **Modelo ML**: CNN en TensorFlow (Python + Flask)
+* Frontend: React.js + Vite + Tailwind CSS
+* Backend: Node.js + Express
+* Database: MongoDB
+* ML Model: CNN in TensorFlow (Python + Flask)
 
-## 📋 Requisitos Previos
+## Prerequisites
 
-- Node.js (v18 o superior)
-- Python (v3.8 o superior)
-- MongoDB (local o MongoDB Atlas)
-- npm o yarn
+* Node.js (v18 or higher)
+* Python (v3.8 or higher)
+* MongoDB (local or MongoDB Atlas)
+* npm or yarn
 
-## 🚀 Instalación y Configuración
+## Installation and Setup
 
-### 1. Clonar el repositorio
+### 1. Clone the repository
 
 ```bash
-git clone <tu-repositorio>
+git clone <your-repository>
 cd fashion_program
 ```
 
-### 2. Configurar Backend
+### 2. Backend Setup
 
 ```bash
 cd backend
 npm install
 ```
 
-Crear archivo `.env` basado en `.env.example`:
+Create a `.env` file based on `.env.example`:
 
 ```env
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/fashion_ai
-CLOUDINARY_CLOUD_NAME=tu_cloud_name (opcional)
-CLOUDINARY_API_KEY=tu_api_key (opcional)
-CLOUDINARY_API_SECRET=tu_api_secret (opcional)
+CLOUDINARY_CLOUD_NAME=your_cloud_name (optional)
+CLOUDINARY_API_KEY=your_api_key (optional)
+CLOUDINARY_API_SECRET=your_api_secret (optional)
 ML_SERVICE_URL=http://localhost:5001
 NODE_ENV=development
 ```
 
-**Nota**: Si no configuras Cloudinary, las imágenes se guardarán localmente en `backend/uploads/`.
+Note: If you do not configure Cloudinary, images will be stored locally in `backend/uploads/`.
 
-### 3. Configurar Servicio ML
+### 3. ML Service Setup
 
 ```bash
 cd ml-service
 python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-#### Guardar el modelo CNN
+#### Save the CNN Model
 
-1. Entrena tu modelo usando el código proporcionado
-2. Guarda el modelo:
+1. Train your model using your training script
+2. Save the model:
 
 ```python
-# En tu script de entrenamiento
+# In your training script
 model.save('modelo_ropa.h5')
 ```
 
-3. Copia el archivo `modelo_ropa.h5` a la carpeta `ml-service/`
+3. Copy the file `modelo_ropa.h5` into the `ml-service/` folder
 
-**Importante**: Ajusta los nombres de las clases en `ml-service/app.py` según tus clases de entrenamiento:
+Important: Adjust the class names in `ml-service/app.py` to match your trained classes:
 
 ```python
 class_names = [
@@ -76,14 +76,14 @@ class_names = [
 ]
 ```
 
-### 4. Configurar Frontend
+### 4. Frontend Setup
 
 ```bash
 cd frontend
 npm install
 ```
 
-## 🏃 Ejecutar la Aplicación
+## Running the Application
 
 ### Terminal 1: Backend
 
@@ -92,17 +92,17 @@ cd backend
 npm run dev
 ```
 
-El backend estará disponible en `http://localhost:5000`
+Backend will be available at `http://localhost:5000`
 
-### Terminal 2: Servicio ML
+### Terminal 2: ML Service
 
 ```bash
 cd ml-service
-source venv/bin/activate  # En Windows: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 python app.py
 ```
 
-El servicio ML estará disponible en `http://localhost:5001`
+ML service will be available at `http://localhost:5001`
 
 ### Terminal 3: Frontend
 
@@ -111,69 +111,69 @@ cd frontend
 npm run dev
 ```
 
-El frontend estará disponible en `http://localhost:3000`
+Frontend will be available at `http://localhost:3000`
 
-## 📁 Estructura del Proyecto
+## Project Structure
 
 ```
 fashion_program/
 ├── backend/
-│   ├── models/          # Modelos de MongoDB (Prenda, Outfit)
-│   ├── routes/          # Rutas de la API
-│   ├── utils/           # Utilidades (Cloudinary)
-│   ├── uploads/         # Imágenes subidas (si no usas Cloudinary)
-│   ├── server.js        # Servidor Express
+│   ├── models/          # MongoDB models (Garment, Outfit)
+│   ├── routes/          # API routes
+│   ├── utils/           # Utilities (Cloudinary)
+│   ├── uploads/         # Uploaded images (if not using Cloudinary)
+│   ├── server.js        # Express server
 │   └── package.json
 ├── frontend/
 │   ├── src/
-│   │   ├── components/  # Componentes React
-│   │   ├── pages/      # Páginas principales
+│   │   ├── components/  # React components
+│   │   ├── pages/       # Main pages
 │   │   ├── App.jsx
 │   │   └── main.jsx
 │   └── package.json
 ├── ml-service/
-│   ├── app.py           # Servicio Flask para el modelo
+│   ├── app.py           # Flask service for the ML model
 │   ├── requirements.txt
-│   └── modelo_ropa.h5   # Modelo CNN (debes agregarlo)
+│   └── modelo_ropa.h5   # CNN model (you must add this)
 └── README.md
 ```
 
-## 🔌 API Endpoints
+## API Endpoints
 
-### Prendas
+### Garments
 
-- `POST /api/prendas/upload` - Subir prenda
-- `GET /api/prendas` - Obtener todas las prendas
-- `GET /api/prendas/filter?type=superior` - Filtrar por tipo
-- `DELETE /api/prendas/:id` - Eliminar prenda
+* POST `/api/prendas/upload` - Upload garment
+* GET `/api/prendas` - Get all garments
+* GET `/api/prendas/filter?type=superior` - Filter by type
+* DELETE `/api/prendas/:id` - Delete garment
 
-### Clasificación
+### Classification
 
-- `POST /api/classify` - Clasificar imagen (envía al servicio ML)
+* POST `/api/classify` - Classify image (sent to ML service)
 
 ### Outfits
 
-- `GET /api/outfits/recommend` - Generar recomendaciones
-- `POST /api/outfits/save` - Guardar outfit
-- `GET /api/outfits` - Obtener outfits guardados
-- `DELETE /api/outfits/:id` - Eliminar outfit
+* GET `/api/outfits/recommend` - Generate recommendations
+* POST `/api/outfits/save` - Save outfit
+* GET `/api/outfits` - Get saved outfits
+* DELETE `/api/outfits/:id` - Delete outfit
 
-## 🗄️ Base de Datos
+## Database
 
-### Colección: prendas
+### Collection: prendas
 
 ```javascript
 {
   _id: ObjectId,
   imagen_url: String,
   tipo: String,           // "superior", "inferior", "zapatos", "accesorio", "abrigo"
-  color: String,          // "rojo", "azul", "negro", etc.
-  confianza: Number,      // 0-1
+  color: String,         // "red", "blue", "black", etc.
+  confianza: Number,    // 0-1
   fecha_agregada: Date
 }
 ```
 
-### Colección: outfits
+### Collection: outfits
 
 ```javascript
 {
@@ -181,74 +181,73 @@ fashion_program/
   superior_id: ObjectId,
   inferior_id: ObjectId,
   zapatos_id: ObjectId,
-  puntuacion: Number,     // 0-100
+  puntuacion: Number,   // 0-100
   fecha_creacion: Date
 }
 ```
 
-## 🎨 Funcionalidades
+## Features
 
-1. **Subir Prenda**: Carga una imagen, el modelo la clasifica automáticamente
-2. **Galería de Prendas**: Ver todas las prendas con filtros por tipo
-3. **Generar Outfits**: Algoritmo simple que combina prendas aleatoriamente
-4. **Guardar Outfits**: Guarda tus outfits favoritos
-5. **Eliminar**: Elimina prendas y outfits
+1. Upload Garment: Upload an image and let the model classify it automatically
+2. Garment Gallery: View all garments with filters by type
+3. Generate Outfits: Simple algorithm that randomly combines garments
+4. Save Outfits: Save your favorite outfits
+5. Delete: Remove garments and outfits
 
-## 🔧 Solución de Problemas
+## Troubleshooting
 
-### El servicio ML no responde
+### ML Service Not Responding
 
-- Verifica que el servicio esté corriendo en el puerto 5001
-- Verifica que el modelo `modelo_ropa.h5` esté en `ml-service/`
-- Revisa los logs del servicio ML para errores
+* Make sure the service is running on port 5001
+* Check that `modelo_ropa.h5` is inside `ml-service/`
+* Review ML service logs for errors
 
-### Error de conexión a MongoDB
+### MongoDB Connection Error
 
-- Verifica que MongoDB esté corriendo localmente
-- O configura MongoDB Atlas y actualiza `MONGODB_URI` en `.env`
+* Verify MongoDB is running locally
+* Or configure MongoDB Atlas and update `MONGODB_URI` in `.env`
 
-### Las imágenes no se muestran
+### Images Not Displaying
 
-- Si usas almacenamiento local, verifica que `backend/uploads/` exista
-- Si usas Cloudinary, verifica las credenciales en `.env`
+* If using local storage, ensure `backend/uploads/` exists
+* If using Cloudinary, verify credentials in `.env`
 
-## 📝 Notas Importantes
+## Important Notes
 
-- **Sin autenticación**: Todos ven las mismas prendas (proyecto universitario)
-- **Modelo CNN**: Debes proporcionar el modelo entrenado (`modelo_ropa.h5`)
-- **Clases del modelo**: Ajusta `class_names` en `ml-service/app.py` según tu modelo
+* No authentication: Everyone sees the same garments (university project)
+* CNN Model: You must provide the trained model file (`modelo_ropa.h5`)
+* Model Classes: Update `class_names` in `ml-service/app.py` to match your model
 
-## 🚀 Despliegue
+## Deployment
 
 ### Frontend (Vercel/Netlify)
 
 ```bash
 cd frontend
 npm run build
-# Subir carpeta dist/ a Vercel o Netlify
+# Upload the dist/ folder to Vercel or Netlify
 ```
 
 ### Backend (Heroku/Railway)
 
 ```bash
 cd backend
-# Configurar variables de entorno en la plataforma
-# Subir código
+# Configure environment variables on the platform
+# Deploy the code
 ```
 
-### Servicio ML (Railway/Render)
+### ML Service (Railway/Render)
 
 ```bash
 cd ml-service
-# Configurar Python runtime
-# Subir código y modelo
+# Configure Python runtime
+# Deploy code and model
 ```
 
-## 👥 Contribuidores
+## Contributors
 
-Proyecto Universitario - Enero 2026
+University Project - January 2026
 
-## 📄 Licencia
+## License
 
-Este proyecto es para uso educativo.
-
+This project is for educational use only.
